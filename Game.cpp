@@ -46,9 +46,9 @@ void Game::setMap(std::string name)
 void Game::updateMap()
 {
 	sf::Vector2i fixed(v2f_player.x / TILE_SIZE, v2f_player.y / TILE_SIZE);
-	sf_v_view.setCenter(fixed.x * TILE_SIZE + TILE_SIZE / 2, fixed.y * TILE_SIZE + TILE_SIZE / 2);
+	player_view.setCenter(fixed.x * TILE_SIZE + TILE_SIZE / 2, fixed.y * TILE_SIZE + TILE_SIZE / 2);
 
-	sf::Vector2f min = sf::Vector2f(sf_v_view.getCenter().x - sf_v_view.getSize().x / 2, sf_v_view.getCenter().y - sf_v_view.getSize().y / 2);
+	sf::Vector2f min = sf::Vector2f(player_view.getCenter().x - player_view.getSize().x / 2, player_view.getCenter().y - player_view.getSize().y / 2);
 
 	int leftBorder = min.x / TILE_SIZE;
 	int rightBorder = leftBorder + i_width;
@@ -57,7 +57,7 @@ void Game::updateMap()
 	{
 		int difference = abs(min.x);
 		min.x += difference;
-		sf_v_view.move(difference, 0);
+		player_view.move(difference, 0);
 
 		leftBorder = min.x / TILE_SIZE;
 	}
@@ -65,22 +65,22 @@ void Game::updateMap()
 	else if (leftBorder > 0 && rightBorder - 1 < c_level.us_width - 1)
 	{
 		min.x -= TILE_SIZE;
-		sf_v_view.move(-TILE_SIZE, 0);
+		player_view.move(-TILE_SIZE, 0);
 
 		leftBorder = min.x / TILE_SIZE;
 	}
 	else if (rightBorder - 1 >= c_level.us_width - 1)
 	{
-		int difference = sf_v_view.getCenter().x + sf_v_view.getSize().x / 2 - (c_level.us_width - 1)*TILE_SIZE;
+		int difference = player_view.getCenter().x + player_view.getSize().x / 2 - (c_level.us_width - 1)*TILE_SIZE;
 		
 		difference = -difference - TILE_SIZE;
 		min.x += difference;
 
 		leftBorder = min.x / TILE_SIZE;
-		sf_v_view.setCenter((leftBorder + (i_width) / 2)*TILE_SIZE + TILE_SIZE, sf_v_view.getCenter().y);
+		player_view.setCenter((leftBorder + (i_width) / 2)*TILE_SIZE + TILE_SIZE, player_view.getCenter().y);
 	}
 	else if(leftBorder == 0)
-		sf_v_view.move(-TILE_SIZE / 2, 0);
+		player_view.move(-TILE_SIZE / 2, 0);
 
 	int upBorder = min.y / TILE_SIZE;
 	int downBorder = upBorder + i_height;
@@ -89,18 +89,18 @@ void Game::updateMap()
 	{
 		int difference = abs(min.y);
 		min.y += difference;
-		sf_v_view.move(0, difference);
+		player_view.move(0, difference);
 
 		upBorder = min.y / TILE_SIZE;
 	}
 	else if (upBorder > 0 && downBorder - 1 < c_level.us_height - 1)
 	{
 		min.y -= TILE_SIZE;
-		sf_v_view.move(0, -TILE_SIZE);
+		player_view.move(0, -TILE_SIZE);
 	}
 	else if (downBorder - 1 >= c_level.us_height - 1)
 	{
-		int difference = sf_v_view.getCenter().y + sf_v_view.getSize().y / 2 - (c_level.us_height - 1)*TILE_SIZE;
+		int difference = player_view.getCenter().y + player_view.getSize().y / 2 - (c_level.us_height - 1)*TILE_SIZE;
 
 		difference = -difference - TILE_SIZE;
 
@@ -108,13 +108,13 @@ void Game::updateMap()
 
 		upBorder = min.y / TILE_SIZE;
 
-		sf_v_view.setCenter(sf_v_view.getCenter().x, (upBorder + (i_height)/ 2)*TILE_SIZE + TILE_SIZE);
+		player_view.setCenter(player_view.getCenter().x, (upBorder + (i_height)/ 2)*TILE_SIZE + TILE_SIZE);
 
 		if (downBorder - 1 == c_level.us_height - 1)
-			sf_v_view.move(0, -TILE_SIZE / 2);
+			player_view.move(0, -TILE_SIZE / 2);
 	}
 	else if (upBorder == 0)
-		sf_v_view.move(0, -TILE_SIZE / 2);
+		player_view.move(0, -TILE_SIZE / 2);
 	
 
 	for (int y = 0, h = upBorder; y < i_height; y++)

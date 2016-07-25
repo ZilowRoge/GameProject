@@ -22,7 +22,7 @@ public:
 
 
 	sf::RenderWindow rw_window;
-	sf::View sf_v_view;
+	sf::View player_view;
 
 	int i_width = 0;
 	int i_height = 0;
