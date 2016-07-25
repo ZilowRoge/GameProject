@@ -5,8 +5,8 @@
 Game::Game()
 {
 	rw_window.create(sf::VideoMode(SCR_WIDTH, SCR_HEIGHT), "GameProject", sf::Style::Close);
-	sf_v_view.setSize(SCR_WIDTH, SCR_HEIGHT);
-	sf_v_view.setCenter(SCR_WIDTH / 2, SCR_HEIGHT / 2);
+	player_view.setSize(SCR_WIDTH, SCR_HEIGHT);
+	player_view.setCenter(SCR_WIDTH / 2, SCR_HEIGHT / 2);
 
 	for (int y = 0, i = 0; y < 8; y++)
 	{
@@ -40,7 +40,7 @@ void Game::setMap(std::string name)
 		return;
 	}
 	updateMap();
-	rw_window.setView(sf_v_view);
+	rw_window.setView(player_view);
 }
 
 void Game::updateMap()
@@ -162,25 +162,25 @@ void Game::start()
 				if (event.key.code == sf::Keyboard::D)
 				{
 					v2f_player.x += TILE_SIZE;
-					sf_v_view.move(TILE_SIZE, 0);
+					player_view.move(TILE_SIZE, 0);
 				}
 				else if (event.key.code == sf::Keyboard::A)
 				{
 					v2f_player.x -= TILE_SIZE;
-					sf_v_view.move(-TILE_SIZE, 0);
+					player_view.move(-TILE_SIZE, 0);
 				}
 				else if (event.key.code == sf::Keyboard::W)
 				{
 					v2f_player.y -= TILE_SIZE;
-					sf_v_view.move(0, -TILE_SIZE);
+					player_view.move(0, -TILE_SIZE);
 				}
 				else if (event.key.code == sf::Keyboard::S)
 				{
 					v2f_player.y += TILE_SIZE;
-					sf_v_view.move(0, TILE_SIZE);
+					player_view.move(0, TILE_SIZE);
 				}
 				updateMap();
-				rw_window.setView(sf_v_view);
+				rw_window.setView(player_view);
 			}
 		}
 
